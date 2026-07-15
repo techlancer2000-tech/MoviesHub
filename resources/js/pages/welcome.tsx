@@ -12,7 +12,7 @@ import {
     Twitter,
 } from 'lucide-react';
 
-import { dashboard, login, register } from '@/routes';
+import { dashboard, login, register, logout } from '@/routes';
 
 export default function Welcome() {
     const { auth } = usePage().props;
@@ -95,12 +95,20 @@ export default function Welcome() {
 
                         <nav className="flex items-center gap-3">
                             {auth.user ? (
-                                <Link
-                                    href={dashboard()}
-                                    className="rounded-xl bg-primary px-5 py-2 font-medium text-primary-foreground"
-                                >
-                                    Dashboard
-                                </Link>
+                                auth.user.role === "admin" ? (
+                                    <Link href={dashboard()} className="rounded-xl bg-primary px-5 py-2 font-medium text-primary-foreground">
+                                        Dashboard
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        href={logout()}
+                                        method="post"
+                                        as="button"
+                                        className="rounded-xl bg-red-500 px-5 py-2 font-medium text-white flex"
+                                    >
+                                        Logout
+                                    </Link>
+                                )
                             ) : (
                                 <>
                                     <Link

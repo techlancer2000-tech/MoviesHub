@@ -21,7 +21,7 @@ class AdminMiddleware
         }
 
         if (auth()->user()->role !== User::Admin) {
-            return redirect()->back();
+            abort(403);
         }
 
         return $next($request);
