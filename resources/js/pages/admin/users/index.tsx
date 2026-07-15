@@ -118,7 +118,6 @@ export default function Index({ users }: Props) {
                                         <TableHead>Email</TableHead>
 
                                         <TableHead>Joined</TableHead>
-
                                     </TableRow>
                                 </TableHeader>
 
