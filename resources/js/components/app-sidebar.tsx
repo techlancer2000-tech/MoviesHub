@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { LayoutGrid, Users2, Database, Languages, MapPin, Map } from 'lucide-react';
+import { LayoutGrid, Users2, Database, Languages, MapPin, Map, BadgeCheck } from 'lucide-react';
 
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -19,6 +19,7 @@ import { index as users } from '@/routes/users/index';
 import { index as languages } from '@/routes/languages';
 import { index as countries } from '@/routes/countries';
 import { index as states } from '@/routes/states';
+import { index as certifications } from '@/routes/certifications';
 
 import type { NavItem } from '@/types';
 
@@ -37,6 +38,11 @@ const mainNavItems: NavItem[] = [
         title: 'Master',
         icon: Database,
         items: [
+            {
+                title: 'Certifications',
+                href: certifications(),
+                icon: BadgeCheck,
+            },
             {
                 title: 'Countries',
                 href: countries(),

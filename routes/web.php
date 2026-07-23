@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CertificationController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\StateController;
@@ -20,6 +21,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::resource('states', StateController::class)->names('states');
     Route::patch('states/{state}/toggle-status', [StateController::class, 'toggleStatus'])->name('states.toggle-status');
+
+    Route::resource('certifications', CertificationController::class)->names('certifications');
 });
 
 Route::middleware(['auth', 'user'])->prefix('user')->group(function () {
