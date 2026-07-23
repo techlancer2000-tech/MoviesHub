@@ -19,12 +19,8 @@ import { Switch } from '@/components/ui/switch';
 interface Country {
     id: number;
     name: string;
-    native_name: string;
+    native: string;
     flag: string;
-    code: string;
-    locale: string;
-    is_active: boolean;
-    created_at: string;
 }
 
 interface Props {
