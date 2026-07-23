@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +10,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 
     Route::resource('users', UserController::class)->names('users');
+    Route::resource('languages', LanguageController::class)->names('languages');
 });
 
 Route::middleware(['auth', 'user'])->prefix('user')->group(function () {

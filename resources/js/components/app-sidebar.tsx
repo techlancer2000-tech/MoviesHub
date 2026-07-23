@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { LayoutGrid, Users2 } from 'lucide-react';
+import { LayoutGrid, Users2, Database, Languages } from 'lucide-react';
+
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -12,8 +13,11 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+
 import { dashboard } from '@/routes';
 import { index as users } from '@/routes/users/index';
+import { index as languages } from '@/routes/languages';
+
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
@@ -26,6 +30,17 @@ const mainNavItems: NavItem[] = [
         title: 'Users',
         href: users(),
         icon: Users2,
+    },
+    {
+        title: 'Master',
+        icon: Database,
+        items: [
+            {
+                title: 'Languages',
+                href: languages(),
+                icon: Languages,
+            },
+        ],
     },
 ];
 
