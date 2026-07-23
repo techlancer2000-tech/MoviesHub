@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { LayoutGrid, Users2, Database, Languages } from 'lucide-react';
+import { LayoutGrid, Users2, Database, Languages, Globe } from 'lucide-react';
 
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
@@ -17,6 +17,7 @@ import {
 import { dashboard } from '@/routes';
 import { index as users } from '@/routes/users/index';
 import { index as languages } from '@/routes/languages';
+import { index as countries } from '@/routes/countries';
 
 import type { NavItem } from '@/types';
 
@@ -35,6 +36,11 @@ const mainNavItems: NavItem[] = [
         title: 'Master',
         icon: Database,
         items: [
+            {
+                title: 'Countries',
+                href: countries(),
+                icon: Globe,
+            },
             {
                 title: 'Languages',
                 href: languages(),
