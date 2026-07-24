@@ -27,6 +27,7 @@ interface Cast {
     gender?: bigint | null;
     country_id?: number | null;
     is_active: boolean;
+    is_cast: boolean;
 }
 
 interface CastFormData {
@@ -38,6 +39,7 @@ interface CastFormData {
     gender: bigint;
     country_id: string;
     is_active: boolean;
+    is_cast: boolean;
     _method?: 'put';
 }
 
@@ -84,6 +86,8 @@ export default function CastForm({ cast, countries, genders }: Props) {
         country_id: cast?.country_id?.toString() ?? '',
 
         is_active: cast?.is_active ?? true,
+
+        is_cast: cast?.is_cast ?? true,
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -299,6 +303,25 @@ export default function CastForm({ cast, countries, genders }: Props) {
                             </div>
 
                             {error('is_active')}
+
+                            <div className="flex items-center justify-between rounded-lg border p-4">
+                                <div>
+                                    <Label>Person Type</Label>
+
+                                    <p className="text-sm text-muted-foreground">
+                                        Enable for cast members, disable for crew members.
+                                    </p>
+                                </div>
+
+                                <Switch
+                                    checked={data.is_cast}
+                                    onCheckedChange={(value) =>
+                                        setData('is_cast', value)
+                                    }
+                                />
+                            </div>
+
+                            {error('is_cast')}
 
                             <div className="flex justify-end">
                                 <Button disabled={processing}>

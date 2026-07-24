@@ -20,11 +20,13 @@ class Cast extends Model
         'gender',
         'country_id',
         'is_active',
+        'is_cast',
     ];
 
     protected $casts = [
         'date_of_birth' => 'date:Y-m-d',
         'is_active' => Boolean::class,
+        'is_cast' => Boolean::class,
         'gender' => Gender::class,
     ];
 

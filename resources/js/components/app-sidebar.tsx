@@ -61,7 +61,7 @@ const mainNavItems: NavItem[] = [
                 icon: Tags,
             },
             {
-                title: 'Casts',
+                title: 'Cast & Crew',
                 href: casts(),
                 icon: Users,
             },

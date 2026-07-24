@@ -42,6 +42,7 @@ interface Cast {
         name: string;
     } | null;
     is_active: boolean;
+    is_cast: boolean;
     created_at: string;
 }
 
@@ -68,6 +69,7 @@ export default function Index({ casts, filters }: Props) {
         'Country',
         'Gender',
         'Date Of Birth',
+        'Type',
         'Status',
         'Created',
         'Actions',
@@ -100,7 +102,7 @@ export default function Index({ casts, filters }: Props) {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">
-                            Casts
+                            Cast & Crew
                         </h1>
 
                         <p className="mt-1 text-sm text-muted-foreground">
@@ -121,7 +123,7 @@ export default function Index({ casts, filters }: Props) {
                 <Card>
                     <CardHeader>
                         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                            <CardTitle>All Casts</CardTitle>
+                            <CardTitle>All Cast & Crew</CardTitle>
 
                             <div className="relative w-full md:w-72">
                                 <Search className="absolute top-3 left-3 h-4 w-4 text-muted-foreground" />
@@ -211,6 +213,18 @@ export default function Index({ casts, filters }: Props) {
                                                 </TableCell>
 
                                                 {/* Status */}
+
+                                                <TableCell>
+                                                    {cast.is_cast ? (
+                                                        <Badge variant="default">
+                                                            Cast
+                                                        </Badge>
+                                                    ) : (
+                                                        <Badge variant="ghost">
+                                                            Crew
+                                                        </Badge>
+                                                    )}
+                                                </TableCell>
 
                                                 <TableCell>
                                                     {cast.is_active ? (
@@ -307,7 +321,7 @@ export default function Index({ casts, filters }: Props) {
 Index.layout = {
     breadcrumbs: [
         {
-            title: 'Casts',
+            title: 'Cast & Crew',
             href: dashboard(),
         },
     ],

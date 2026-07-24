@@ -24,6 +24,7 @@ class CastRequest extends FormRequest
     {
         $this->merge([
             'is_active' => $this->boolean('is_active'),
+            'is_cast' => $this->boolean('is_cast'),
         ]);
     }
 
@@ -88,6 +89,11 @@ class CastRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+
+            'is_cast' => [
+                'required',
+                'boolean',
+            ],
         ];
     }
 
@@ -112,6 +118,8 @@ class CastRequest extends FormRequest
             'country_id.exists' => 'Please select a valid country.',
 
             'is_active.required' => 'Please select the cast status.',
+
+            'is_cast.required' => 'Please select the person type.',
         ];
     }
 }
