@@ -14,7 +14,7 @@ class Genre extends Model
         'name',
         'slug',
         'description',
-        'status',
+        'is_active',
     ];
 
     protected $casts = [

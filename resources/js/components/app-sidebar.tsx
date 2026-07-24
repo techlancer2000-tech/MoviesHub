@@ -5,11 +5,11 @@ import {
     Database,
     Languages,
     MapPin,
-    Map,
+    Globe2,
     BadgeCheck,
     Tags,
-    Users,
-    Clapperboard,
+    Building2,
+    UsersRound,
 } from 'lucide-react';
 
 import AppLogo from '@/components/app-logo';
@@ -49,33 +49,23 @@ const mainNavItems: NavItem[] = [
         icon: Users2,
     },
     {
-        title: 'Master',
+        title: 'Master Data',
         icon: Database,
         items: [
-            {
-                title: 'Production Companies',
-                href: productionCompanies(),
-                icon: Clapperboard,
-            },
-            {
-                title: 'Certifications',
-                href: certifications(),
-                icon: BadgeCheck,
-            },
             {
                 title: 'Genres',
                 href: genres(),
                 icon: Tags,
             },
             {
-                title: 'Cast & Crew',
-                href: casts(),
-                icon: Users,
+                title: 'Languages',
+                href: languages(),
+                icon: Languages,
             },
             {
                 title: 'Countries',
                 href: countries(),
-                icon: Map,
+                icon: Globe2,
             },
             {
                 title: 'States',
@@ -83,9 +73,19 @@ const mainNavItems: NavItem[] = [
                 icon: MapPin,
             },
             {
-                title: 'Languages',
-                href: languages(),
-                icon: Languages,
+                title: 'Certifications',
+                href: certifications(),
+                icon: BadgeCheck,
+            },
+            {
+                title: 'Production Companies',
+                href: productionCompanies(),
+                icon: Building2,
+            },
+            {
+                title: 'Cast & Crew',
+                href: casts(),
+                icon: UsersRound,
             },
         ],
     },
