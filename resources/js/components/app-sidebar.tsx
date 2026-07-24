@@ -9,6 +9,7 @@ import {
     BadgeCheck,
     Tags,
     Users,
+    Clapperboard,
 } from 'lucide-react';
 
 import AppLogo from '@/components/app-logo';
@@ -32,6 +33,7 @@ import { index as states } from '@/routes/states';
 import { index as certifications } from '@/routes/certifications';
 import { index as genres } from '@/routes/genres';
 import { index as casts } from '@/routes/casts';
+import { index as productionCompanies } from '@/routes/production-companies';
 
 import type { NavItem } from '@/types';
 
@@ -50,6 +52,11 @@ const mainNavItems: NavItem[] = [
         title: 'Master',
         icon: Database,
         items: [
+            {
+                title: 'Production Companies',
+                href: productionCompanies(),
+                icon: Clapperboard,
+            },
             {
                 title: 'Certifications',
                 href: certifications(),

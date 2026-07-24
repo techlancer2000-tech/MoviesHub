@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CertificationController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\GenreController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\ProductionCompanyController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('genres', GenreController::class)->names('genres');
 
     Route::resource('casts', CastController::class)->names('casts');
+
+    Route::resource('production-companies', ProductionCompanyController::class)->names('production-companies');
 });
 
 Route::middleware(['auth', 'user'])->prefix('user')->group(function () {
