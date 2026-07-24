@@ -25,7 +25,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {index as languagesIndex} from '@/routes/languages';
+import { index as languagesIndex } from '@/routes/languages';
 import Pagination from '@/components/pagination';
 interface Language {
     id: number;
@@ -122,7 +122,9 @@ export default function Index({ languages, filters }: Props) {
 
                                 <Input
                                     value={search}
-                                    onChange={(e) => handleSearch(e.target.value)}
+                                    onChange={(e) =>
+                                        handleSearch(e.target.value)
+                                    }
                                     placeholder="Search languages..."
                                     className="pl-9"
                                 />
@@ -184,12 +186,16 @@ export default function Index({ languages, filters }: Props) {
                                                 </TableCell>
 
                                                 <TableCell>
-                                                    {new Date(language.created_at).toLocaleDateString()}
+                                                    {new Date(
+                                                        language.created_at,
+                                                    ).toLocaleDateString()}
                                                 </TableCell>
 
                                                 <TableCell>
                                                     <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
+                                                        <DropdownMenuTrigger
+                                                            asChild
+                                                        >
                                                             <Button
                                                                 variant="ghost"
                                                                 size="icon"
@@ -200,8 +206,12 @@ export default function Index({ languages, filters }: Props) {
                                                         </DropdownMenuTrigger>
 
                                                         <DropdownMenuContent align="end">
-                                                            <DropdownMenuItem asChild>
-                                                                <Link href={`/admin/languages/${language.id}/edit`}>
+                                                            <DropdownMenuItem
+                                                                asChild
+                                                            >
+                                                                <Link
+                                                                    href={`/admin/languages/${language.id}/edit`}
+                                                                >
                                                                     <Pencil className="mr-2 h-4 w-4" />
                                                                     Edit
                                                                 </Link>

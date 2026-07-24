@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Enums\Boolean;
 use App\Repositories\CountryRepository;
 use App\Services\BaseService;
 class CountryService extends BaseService
@@ -21,5 +22,12 @@ class CountryService extends BaseService
             ->orderBy('name')
             ->paginate(10)
             ->withQueryString();
+    }
+
+    public function getActive()
+    {
+        return $this->repository->where('flag', Boolean::True)
+            ->orderBy('name')
+            ->get(['id', 'name']);
     }
 }

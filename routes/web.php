@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CastController;
 use App\Http\Controllers\Admin\CertificationController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\GenreController;
@@ -26,6 +27,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('certifications', CertificationController::class)->names('certifications');
 
     Route::resource('genres', GenreController::class)->names('genres');
+
+    Route::resource('casts', CastController::class)->names('casts');
 });
 
 Route::middleware(['auth', 'user'])->prefix('user')->group(function () {

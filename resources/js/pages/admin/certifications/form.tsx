@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from '@/components/ui/textarea';
 import { useFlashToast } from '@/hooks/use-flash-toast';
 import {
     index as certificationsIndex,
@@ -39,18 +39,13 @@ export default function CertificationForm({ certification }: Props) {
 
     const toast = useFlashToast();
 
-    const {
-        data,
-        setData,
-        post,
-        processing,
-        errors,
-    } = useForm<CertificationFormData>({
-        name: certification?.name ?? '',
-        code: certification?.code ?? '',
-        description: certification?.description ?? '',
-        is_active: certification?.is_active ?? true,
-    });
+    const { data, setData, post, processing, errors } =
+        useForm<CertificationFormData>({
+            name: certification?.name ?? '',
+            code: certification?.code ?? '',
+            description: certification?.description ?? '',
+            is_active: certification?.is_active ?? true,
+        });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -74,15 +69,13 @@ export default function CertificationForm({ certification }: Props) {
                             : 'Certification created successfully.',
                     });
                 },
-            }
+            },
         );
     };
 
     const error = (field: keyof CertificationFormData) =>
         errors[field] && (
-            <p className="text-sm text-destructive">
-                {errors[field]}
-            </p>
+            <p className="text-sm text-destructive">{errors[field]}</p>
         );
 
     return (
@@ -93,7 +86,9 @@ export default function CertificationForm({ certification }: Props) {
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight">
-                            {isEdit ? 'Edit Certification' : 'Add Certification'}
+                            {isEdit
+                                ? 'Edit Certification'
+                                : 'Add Certification'}
                         </h1>
 
                         <p className="text-sm text-muted-foreground">
@@ -111,30 +106,19 @@ export default function CertificationForm({ certification }: Props) {
 
                 <Card className="rounded-xl">
                     <CardHeader>
-                        <CardTitle>
-                            Certification Information
-                        </CardTitle>
+                        <CardTitle>Certification Information</CardTitle>
                     </CardHeader>
 
                     <CardContent>
-                        <form
-                            onSubmit={submit}
-                            className="space-y-6"
-                        >
+                        <form onSubmit={submit} className="space-y-6">
                             <div className="grid gap-5 md:grid-cols-2">
-
                                 <div className="space-y-2">
-                                    <Label>
-                                        Certification Name *
-                                    </Label>
+                                    <Label>Certification Name *</Label>
 
                                     <Input
                                         value={data.name}
                                         onChange={(e) =>
-                                            setData(
-                                                'name',
-                                                e.target.value
-                                            )
+                                            setData('name', e.target.value)
                                         }
                                         placeholder="Universal"
                                     />
@@ -143,52 +127,38 @@ export default function CertificationForm({ certification }: Props) {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label>
-                                        Certification Code *
-                                    </Label>
+                                    <Label>Certification Code *</Label>
 
                                     <Input
                                         value={data.code}
                                         onChange={(e) =>
-                                            setData(
-                                                'code',
-                                                e.target.value
-                                            )
+                                            setData('code', e.target.value)
                                         }
                                         placeholder="U"
                                     />
 
                                     {error('code')}
                                 </div>
-
-
                             </div>
 
                             <div>
-                                <Label>
-                                    Description *
-                                </Label>
+                                <Label>Description *</Label>
 
                                 <Textarea
                                     value={data.description}
                                     onChange={(e) =>
-                                        setData(
-                                            "description",
-                                            e.target.value
-                                        )
+                                        setData('description', e.target.value)
                                     }
                                     placeholder="Enter certification description"
                                     rows={4}
                                 />
 
-                                {error("description")}
+                                {error('description')}
                             </div>
 
                             <div className="flex items-center justify-between rounded-lg border p-4">
                                 <div>
-                                    <Label>
-                                        Active Status
-                                    </Label>
+                                    <Label>Active Status</Label>
 
                                     <p className="text-sm text-muted-foreground">
                                         Enable this certification for movies.
@@ -198,27 +168,22 @@ export default function CertificationForm({ certification }: Props) {
                                 <Switch
                                     checked={data.is_active}
                                     onCheckedChange={(value) =>
-                                        setData(
-                                            'is_active',
-                                            value
-                                        )
+                                        setData('is_active', value)
                                     }
                                 />
                             </div>
 
                             {error('is_active')}
 
-
                             <div className="flex justify-end">
                                 <Button disabled={processing}>
                                     {processing
                                         ? 'Saving...'
                                         : isEdit
-                                            ? 'Update Certification'
-                                            : 'Create Certification'}
+                                          ? 'Update Certification'
+                                          : 'Create Certification'}
                                 </Button>
                             </div>
-
                         </form>
                     </CardContent>
                 </Card>

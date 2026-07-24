@@ -18,12 +18,10 @@ export default function Pagination({ links }: Props) {
                 const label = link.label.toLowerCase();
 
                 const isPrevious =
-                    label.includes('previous') ||
-                    label.includes('laquo');
+                    label.includes('previous') || label.includes('laquo');
 
                 const isNext =
-                    label.includes('next') ||
-                    label.includes('raquo');
+                    label.includes('next') || label.includes('raquo');
 
                 return (
                     <Button

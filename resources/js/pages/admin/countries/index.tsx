@@ -12,7 +12,7 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import {index as countriesIndex} from '@/routes/countries';
+import { index as countriesIndex } from '@/routes/countries';
 import Pagination from '@/components/pagination';
 import { Switch } from '@/components/ui/switch';
 
@@ -98,7 +98,9 @@ export default function Index({ countries, filters }: Props) {
 
                                 <Input
                                     value={search}
-                                    onChange={(e) => handleSearch(e.target.value)}
+                                    onChange={(e) =>
+                                        handleSearch(e.target.value)
+                                    }
                                     placeholder="Search countries..."
                                     className="pl-9"
                                 />
@@ -137,15 +139,21 @@ export default function Index({ countries, filters }: Props) {
 
                                                 <TableCell>
                                                     <div className="flex flex-col">
-                                                        <span className="font-medium mb-1">
-                                                            {country.currency_name}
+                                                        <span className="mb-1 font-medium">
+                                                            {
+                                                                country.currency_name
+                                                            }
                                                         </span>
                                                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                                             <span className="rounded-md bg-green-100 px-2 py-0.5 font-medium text-green-800">
-                                                                {country.currency_symbol}
+                                                                {
+                                                                    country.currency_symbol
+                                                                }
                                                             </span>
                                                             <span className="rounded-md border px-2 py-0.5">
-                                                                {country.currency}
+                                                                {
+                                                                    country.currency
+                                                                }
                                                             </span>
                                                         </div>
                                                     </div>
@@ -153,38 +161,60 @@ export default function Index({ countries, filters }: Props) {
 
                                                 <TableCell>
                                                     {(() => {
-                                                        const timezone = Array.isArray(country.timezones)
-                                                            ? country.timezones[0]
-                                                            : JSON.parse(country.timezones)?.[0];
+                                                        const timezone =
+                                                            Array.isArray(
+                                                                country.timezones,
+                                                            )
+                                                                ? country
+                                                                      .timezones[0]
+                                                                : JSON.parse(
+                                                                      country.timezones,
+                                                                  )?.[0];
 
-                                                        if (!timezone) return "-";
+                                                        if (!timezone)
+                                                            return '-';
 
-                                                        const currentTime = new Intl.DateTimeFormat("en-US", {
-                                                            timeZone: timezone.zoneName,
-                                                            hour: "2-digit",
-                                                            minute: "2-digit",
-                                                            second: "2-digit",
-                                                            hour12: true,
-                                                        }).format(new Date());
+                                                        const currentTime =
+                                                            new Intl.DateTimeFormat(
+                                                                'en-US',
+                                                                {
+                                                                    timeZone:
+                                                                        timezone.zoneName,
+                                                                    hour: '2-digit',
+                                                                    minute: '2-digit',
+                                                                    second: '2-digit',
+                                                                    hour12: true,
+                                                                },
+                                                            ).format(
+                                                                new Date(),
+                                                            );
 
                                                         return (
                                                             <div className="flex flex-col gap-1">
                                                                 <div className="flex items-center gap-2">
                                                                     <Globe2 className="h-4 w-4 text-muted-foreground" />
                                                                     <span className="font-medium">
-                                                                        {timezone.zoneName}
+                                                                        {
+                                                                            timezone.zoneName
+                                                                        }
                                                                     </span>
                                                                 </div>
                                                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                                                     <Clock3 className="h-3.5 w-3.5" />
                                                                     <span>
-                                                                        {currentTime}
+                                                                        {
+                                                                            currentTime
+                                                                        }
                                                                     </span>
                                                                     <span className="rounded-md bg-muted px-2 py-0.5 text-xs">
-                                                                        {timezone.gmtOffsetName}
+                                                                        {
+                                                                            timezone.gmtOffsetName
+                                                                        }
                                                                     </span>
                                                                     <span className="rounded-md border px-2 py-0.5 text-xs">
-                                                                        {timezone.abbreviation}
+                                                                        {
+                                                                            timezone.abbreviation
+                                                                        }
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -195,8 +225,12 @@ export default function Index({ countries, filters }: Props) {
                                                 <TableCell>
                                                     <div className="flex items-center gap-2">
                                                         <Switch
-                                                            checked={!!country.flag}
-                                                            onCheckedChange={(checked) => {
+                                                            checked={
+                                                                !!country.flag
+                                                            }
+                                                            onCheckedChange={(
+                                                                checked,
+                                                            ) => {
                                                                 router.patch(
                                                                     `/admin/countries/${country.id}/toggle-status`,
                                                                     {
@@ -204,7 +238,7 @@ export default function Index({ countries, filters }: Props) {
                                                                     },
                                                                     {
                                                                         preserveScroll: true,
-                                                                    }
+                                                                    },
                                                                 );
                                                             }}
                                                         />

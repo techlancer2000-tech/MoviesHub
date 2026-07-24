@@ -12,7 +12,7 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import {index as statesIndex} from '@/routes/states';
+import { index as statesIndex } from '@/routes/states';
 import Pagination from '@/components/pagination';
 import { Switch } from '@/components/ui/switch';
 
@@ -41,13 +41,7 @@ interface Props {
 }
 
 export default function Index({ states, filters }: Props) {
-    const tableHeads = [
-        'Name',
-        'Country Name',
-        'Native',
-        'Map',
-        'Status',
-    ];
+    const tableHeads = ['Name', 'Country Name', 'Native', 'Map', 'Status'];
 
     const [search, setSearch] = useState(filters.search ?? '');
 
@@ -97,7 +91,9 @@ export default function Index({ states, filters }: Props) {
 
                                 <Input
                                     value={search}
-                                    onChange={(e) => handleSearch(e.target.value)}
+                                    onChange={(e) =>
+                                        handleSearch(e.target.value)
+                                    }
                                     placeholder="Search states..."
                                     className="pl-9"
                                 />
@@ -135,7 +131,8 @@ export default function Index({ states, filters }: Props) {
                                                 </TableCell>
 
                                                 <TableCell>
-                                                    {state.latitude && state.longitude ? (
+                                                    {state.latitude &&
+                                                    state.longitude ? (
                                                         <a
                                                             href={`https://www.google.com/maps?q=${state.latitude},${state.longitude}`}
                                                             target="_blank"
@@ -145,21 +142,25 @@ export default function Index({ states, filters }: Props) {
                                                             <MapPinned className="h-4 w-4" />
 
                                                             <span>
-                View Map
-            </span>
+                                                                View Map
+                                                            </span>
                                                         </a>
                                                     ) : (
                                                         <span className="text-muted-foreground">
-            -
-        </span>
+                                                            -
+                                                        </span>
                                                     )}
                                                 </TableCell>
 
                                                 <TableCell>
                                                     <div className="flex items-center gap-2">
                                                         <Switch
-                                                            checked={!!state.flag}
-                                                            onCheckedChange={(checked) => {
+                                                            checked={
+                                                                !!state.flag
+                                                            }
+                                                            onCheckedChange={(
+                                                                checked,
+                                                            ) => {
                                                                 router.patch(
                                                                     `/admin/states/${state.id}/toggle-status`,
                                                                     {
@@ -167,7 +168,7 @@ export default function Index({ states, filters }: Props) {
                                                                     },
                                                                     {
                                                                         preserveScroll: true,
-                                                                    }
+                                                                    },
                                                                 );
                                                             }}
                                                         />

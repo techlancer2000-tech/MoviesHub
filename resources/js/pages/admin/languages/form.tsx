@@ -43,20 +43,15 @@ export default function LanguageForm({ language }: Props) {
 
     const toast = useFlashToast();
 
-    const {
-        data,
-        setData,
-        post,
-        processing,
-        errors,
-    } = useForm<LanguageFormData>({
-        name: language?.name ?? '',
-        native_name: language?.native_name ?? '',
-        code: language?.code ?? '',
-        locale: language?.locale ?? '',
-        flag: null,
-        is_active: language?.is_active ?? true,
-    });
+    const { data, setData, post, processing, errors } =
+        useForm<LanguageFormData>({
+            name: language?.name ?? '',
+            native_name: language?.native_name ?? '',
+            code: language?.code ?? '',
+            locale: language?.locale ?? '',
+            flag: null,
+            is_active: language?.is_active ?? true,
+        });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -66,9 +61,7 @@ export default function LanguageForm({ language }: Props) {
         }
 
         post(
-            isEdit
-                ? languagesUpdate(language!.id!).url
-                : languagesStore().url,
+            isEdit ? languagesUpdate(language!.id!).url : languagesStore().url,
             {
                 forceFormData: true,
 
@@ -80,15 +73,13 @@ export default function LanguageForm({ language }: Props) {
                             : 'Language created successfully.',
                     });
                 },
-            }
+            },
         );
     };
 
     const error = (field: keyof LanguageFormData) =>
         errors[field] && (
-            <p className="text-sm text-destructive">
-                {errors[field]}
-            </p>
+            <p className="text-sm text-destructive">{errors[field]}</p>
         );
 
     return (
@@ -117,30 +108,19 @@ export default function LanguageForm({ language }: Props) {
 
                 <Card className="rounded-xl">
                     <CardHeader>
-                        <CardTitle>
-                            Language Information
-                        </CardTitle>
+                        <CardTitle>Language Information</CardTitle>
                     </CardHeader>
 
                     <CardContent>
-                        <form
-                            onSubmit={submit}
-                            className="space-y-6"
-                        >
+                        <form onSubmit={submit} className="space-y-6">
                             <div className="grid gap-5 md:grid-cols-2">
-
                                 <div className="space-y-2">
-                                    <Label>
-                                        Language Name *
-                                    </Label>
+                                    <Label>Language Name *</Label>
 
                                     <Input
                                         value={data.name}
                                         onChange={(e) =>
-                                            setData(
-                                                'name',
-                                                e.target.value
-                                            )
+                                            setData('name', e.target.value)
                                         }
                                         placeholder="English"
                                     />
@@ -148,18 +128,15 @@ export default function LanguageForm({ language }: Props) {
                                     {error('name')}
                                 </div>
 
-
                                 <div className="space-y-2">
-                                    <Label>
-                                        Native Name
-                                    </Label>
+                                    <Label>Native Name</Label>
 
                                     <Input
                                         value={data.native_name}
                                         onChange={(e) =>
                                             setData(
                                                 'native_name',
-                                                e.target.value
+                                                e.target.value,
                                             )
                                         }
                                         placeholder="English"
@@ -168,19 +145,13 @@ export default function LanguageForm({ language }: Props) {
                                     {error('native_name')}
                                 </div>
 
-
                                 <div className="space-y-2">
-                                    <Label>
-                                        Language Code *
-                                    </Label>
+                                    <Label>Language Code *</Label>
 
                                     <Input
                                         value={data.code}
                                         onChange={(e) =>
-                                            setData(
-                                                'code',
-                                                e.target.value
-                                            )
+                                            setData('code', e.target.value)
                                         }
                                         placeholder="en"
                                     />
@@ -188,19 +159,13 @@ export default function LanguageForm({ language }: Props) {
                                     {error('code')}
                                 </div>
 
-
                                 <div className="space-y-2">
-                                    <Label>
-                                        Locale
-                                    </Label>
+                                    <Label>Locale</Label>
 
                                     <Input
                                         value={data.locale}
                                         onChange={(e) =>
-                                            setData(
-                                                'locale',
-                                                e.target.value
-                                            )
+                                            setData('locale', e.target.value)
                                         }
                                         placeholder="en_US"
                                     />
@@ -208,33 +173,26 @@ export default function LanguageForm({ language }: Props) {
                                     {error('locale')}
                                 </div>
 
-
                                 <div className="space-y-2">
-                                    <Label>
-                                        Flag
-                                    </Label>
+                                    <Label>Flag</Label>
 
                                     <Input
                                         type="file"
                                         onChange={(e) =>
                                             setData(
                                                 'flag',
-                                                e.target.files?.[0] ?? null
+                                                e.target.files?.[0] ?? null,
                                             )
                                         }
                                     />
 
                                     {error('flag')}
                                 </div>
-
                             </div>
-
 
                             <div className="flex items-center justify-between rounded-lg border p-4">
                                 <div>
-                                    <Label>
-                                        Active Status
-                                    </Label>
+                                    <Label>Active Status</Label>
 
                                     <p className="text-sm text-muted-foreground">
                                         Enable this language for movies.
@@ -244,27 +202,22 @@ export default function LanguageForm({ language }: Props) {
                                 <Switch
                                     checked={data.is_active}
                                     onCheckedChange={(value) =>
-                                        setData(
-                                            'is_active',
-                                            value
-                                        )
+                                        setData('is_active', value)
                                     }
                                 />
                             </div>
 
                             {error('is_active')}
 
-
                             <div className="flex justify-end">
                                 <Button disabled={processing}>
                                     {processing
                                         ? 'Saving...'
                                         : isEdit
-                                            ? 'Update Language'
-                                            : 'Create Language'}
+                                          ? 'Update Language'
+                                          : 'Create Language'}
                                 </Button>
                             </div>
-
                         </form>
                     </CardContent>
                 </Card>

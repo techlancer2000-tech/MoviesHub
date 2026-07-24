@@ -1,6 +1,7 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { Search, MoreHorizontal, Pencil, Trash2, Plus } from 'lucide-react';
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { dashboard } from '@/routes';
-import { create as createGenre } from '@/routes/genres';
+import { create as createCast, index as castsIndex } from '@/routes/casts';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -25,20 +26,28 @@ import {
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { index as genresIndex } from '@/routes/genres';
+
 import Pagination from '@/components/pagination';
-interface Genre {
+
+interface Cast {
     id: number;
     name: string;
     slug: string;
-    description: string;
+    profile_image?: string | null;
+    biography?: string | null;
+    date_of_birth?: string | null;
+    gender?: string | null;
+    country?: {
+        id: number;
+        name: string;
+    } | null;
     is_active: boolean;
     created_at: string;
 }
 
 interface Props {
-    genres: {
-        data: Genre[];
+    casts: {
+        data: Cast[];
         links: {
             url: string | null;
             label: string;
@@ -53,11 +62,12 @@ interface Props {
     };
 }
 
-export default function Index({ genres, filters }: Props) {
+export default function Index({ casts, filters }: Props) {
     const tableHeads = [
-        'Name',
-        'Slug',
-        'Description',
+        'Cast',
+        'Country',
+        'Gender',
+        'Date Of Birth',
         'Status',
         'Created',
         'Actions',
@@ -69,7 +79,7 @@ export default function Index({ genres, filters }: Props) {
         setSearch(value);
 
         router.get(
-            genresIndex(),
+            castsIndex(),
             {
                 search: value,
             },
@@ -82,7 +92,7 @@ export default function Index({ genres, filters }: Props) {
 
     return (
         <>
-            <Head title="Genres" />
+            <Head title="Casts" />
 
             <div className="flex flex-1 flex-col gap-6 p-6">
                 {/* Header */}
@@ -90,28 +100,28 @@ export default function Index({ genres, filters }: Props) {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">
-                            Genres
+                            Casts
                         </h1>
 
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Manage available genres for movies and content.
+                            Manage actors and actresses for movies.
                         </p>
                     </div>
 
                     <Button asChild>
-                        <Link href={createGenre()} prefetch>
-                            <Plus className="h-4 w-4" />
-                            Add Genre
+                        <Link href={createCast()} prefetch>
+                            <Plus className="mr-2 h-4 w-4" />
+                            Add Cast
                         </Link>
                     </Button>
                 </div>
 
-                {/* Genres Table */}
+                {/* Table */}
 
                 <Card>
                     <CardHeader>
                         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                            <CardTitle>All Genres</CardTitle>
+                            <CardTitle>All Casts</CardTitle>
 
                             <div className="relative w-full md:w-72">
                                 <Search className="absolute top-3 left-3 h-4 w-4 text-muted-foreground" />
@@ -121,7 +131,7 @@ export default function Index({ genres, filters }: Props) {
                                     onChange={(e) =>
                                         handleSearch(e.target.value)
                                     }
-                                    placeholder="Search genres..."
+                                    placeholder="Search casts..."
                                     className="pl-9"
                                 />
                             </div>
@@ -133,8 +143,8 @@ export default function Index({ genres, filters }: Props) {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        {tableHeads.map((title, i) => (
-                                            <TableHead key={i}>
+                                        {tableHeads.map((title) => (
+                                            <TableHead key={title}>
                                                 {title}
                                             </TableHead>
                                         ))}
@@ -142,23 +152,68 @@ export default function Index({ genres, filters }: Props) {
                                 </TableHeader>
 
                                 <TableBody>
-                                    {genres.data.length > 0 ? (
-                                        genres.data.map((genre) => (
-                                            <TableRow key={genre.id}>
-                                                <TableCell className="font-medium">
-                                                    {genre.name}
-                                                </TableCell>
+                                    {casts.data.length > 0 ? (
+                                        casts.data.map((cast) => (
+                                            <TableRow key={cast.id}>
+                                                {/* Cast */}
 
                                                 <TableCell>
-                                                    {genre.slug}
+                                                    <div className="flex items-center gap-3">
+                                                        {cast.profile_image ? (
+                                                            <img
+                                                                src={`/storage/${cast.profile_image}`}
+                                                                alt={cast.name}
+                                                                className="h-10 w-10 rounded-full object-cover"
+                                                            />
+                                                        ) : (
+                                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted font-medium">
+                                                                {cast.name
+                                                                    .charAt(0)
+                                                                    .toUpperCase()}
+                                                            </div>
+                                                        )}
+
+                                                        <div>
+                                                            <p className="font-medium">
+                                                                {cast.name}
+                                                            </p>
+
+                                                            <p className="text-xs text-muted-foreground">
+                                                                {cast.slug}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </TableCell>
 
-                                                <TableCell>
-                                                    {genre.description}
-                                                </TableCell>
+                                                {/* Country */}
 
                                                 <TableCell>
-                                                    {genre.is_active ? (
+                                                    {cast.country?.name ?? '-'}
+                                                </TableCell>
+
+                                                {/* Gender */}
+
+                                                <TableCell>
+                                                    <Badge variant="secondary">
+                                                        {cast.gender_data
+                                                            ?.name ?? 'Unknown'}
+                                                    </Badge>
+                                                </TableCell>
+
+                                                {/* DOB */}
+
+                                                <TableCell>
+                                                    {cast.date_of_birth
+                                                        ? new Date(
+                                                              cast.date_of_birth,
+                                                          ).toLocaleDateString()
+                                                        : '-'}
+                                                </TableCell>
+
+                                                {/* Status */}
+
+                                                <TableCell>
+                                                    {cast.is_active ? (
                                                         <Badge className="border-green-200 bg-green-100 text-green-700 hover:bg-green-100">
                                                             Active
                                                         </Badge>
@@ -169,11 +224,15 @@ export default function Index({ genres, filters }: Props) {
                                                     )}
                                                 </TableCell>
 
+                                                {/* Created */}
+
                                                 <TableCell>
                                                     {new Date(
-                                                        genre.created_at,
+                                                        cast.created_at,
                                                     ).toLocaleDateString()}
                                                 </TableCell>
+
+                                                {/* Actions */}
 
                                                 <TableCell>
                                                     <DropdownMenu>
@@ -194,7 +253,7 @@ export default function Index({ genres, filters }: Props) {
                                                                 asChild
                                                             >
                                                                 <Link
-                                                                    href={`/admin/genres/${genre.id}/edit`}
+                                                                    href={`/admin/casts/${cast.id}/edit`}
                                                                 >
                                                                     <Pencil className="mr-2 h-4 w-4" />
                                                                     Edit
@@ -206,11 +265,11 @@ export default function Index({ genres, filters }: Props) {
                                                                 onClick={() => {
                                                                     if (
                                                                         confirm(
-                                                                            'Are you sure you want to delete this genre?',
+                                                                            'Are you sure you want to delete this cast?',
                                                                         )
                                                                     ) {
                                                                         router.delete(
-                                                                            `/admin/genres/${genre.id}`,
+                                                                            `/admin/casts/${cast.id}`,
                                                                         );
                                                                     }
                                                                 }}
@@ -229,14 +288,15 @@ export default function Index({ genres, filters }: Props) {
                                                 colSpan={tableHeads.length}
                                                 className="h-16 text-center text-muted-foreground"
                                             >
-                                                No genres found.
+                                                No casts found.
                                             </TableCell>
                                         </TableRow>
                                     )}
                                 </TableBody>
                             </Table>
                         </div>
-                        <Pagination links={genres.links} />
+
+                        <Pagination links={casts.links} />
                     </CardContent>
                 </Card>
             </div>
@@ -247,7 +307,7 @@ export default function Index({ genres, filters }: Props) {
 Index.layout = {
     breadcrumbs: [
         {
-            title: 'Genres',
+            title: 'Casts',
             href: dashboard(),
         },
     ],

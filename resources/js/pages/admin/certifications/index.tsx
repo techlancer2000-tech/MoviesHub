@@ -25,7 +25,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {index as certificationsIndex} from '@/routes/certifications';
+import { index as certificationsIndex } from '@/routes/certifications';
 import Pagination from '@/components/pagination';
 interface Certification {
     id: number;
@@ -94,7 +94,8 @@ export default function Index({ certifications, filters }: Props) {
                         </h1>
 
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Manage available certifications for movies and content.
+                            Manage available certifications for movies and
+                            content.
                         </p>
                     </div>
 
@@ -118,7 +119,9 @@ export default function Index({ certifications, filters }: Props) {
 
                                 <Input
                                     value={search}
-                                    onChange={(e) => handleSearch(e.target.value)}
+                                    onChange={(e) =>
+                                        handleSearch(e.target.value)
+                                    }
                                     placeholder="Search certifications..."
                                     className="pl-9"
                                 />
@@ -141,78 +144,92 @@ export default function Index({ certifications, filters }: Props) {
 
                                 <TableBody>
                                     {certifications.data.length > 0 ? (
-                                        certifications.data.map((certification) => (
-                                            <TableRow key={certification.id}>
-                                                <TableCell className="font-medium">
-                                                    {certification.name}
-                                                </TableCell>
+                                        certifications.data.map(
+                                            (certification) => (
+                                                <TableRow
+                                                    key={certification.id}
+                                                >
+                                                    <TableCell className="font-medium">
+                                                        {certification.name}
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    {certification.code}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {certification.code}
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    {certification.description}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {
+                                                            certification.description
+                                                        }
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    {certification.is_active ? (
-                                                        <Badge className="border-green-200 bg-green-100 text-green-700 hover:bg-green-100">
-                                                            Active
-                                                        </Badge>
-                                                    ) : (
-                                                        <Badge variant="destructive">
-                                                            Inactive
-                                                        </Badge>
-                                                    )}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {certification.is_active ? (
+                                                            <Badge className="border-green-200 bg-green-100 text-green-700 hover:bg-green-100">
+                                                                Active
+                                                            </Badge>
+                                                        ) : (
+                                                            <Badge variant="destructive">
+                                                                Inactive
+                                                            </Badge>
+                                                        )}
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    {new Date(certification.created_at).toLocaleDateString()}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {new Date(
+                                                            certification.created_at,
+                                                        ).toLocaleDateString()}
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="icon"
-                                                                className="h-8 w-8"
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger
+                                                                asChild
                                                             >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
+                                                                <Button
+                                                                    variant="ghost"
+                                                                    size="icon"
+                                                                    className="h-8 w-8"
+                                                                >
+                                                                    <MoreHorizontal className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
 
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuItem asChild>
-                                                                <Link href={`/admin/certifications/${certification.id}/edit`}>
-                                                                    <Pencil className="mr-2 h-4 w-4" />
-                                                                    Edit
-                                                                </Link>
-                                                            </DropdownMenuItem>
+                                                            <DropdownMenuContent align="end">
+                                                                <DropdownMenuItem
+                                                                    asChild
+                                                                >
+                                                                    <Link
+                                                                        href={`/admin/certifications/${certification.id}/edit`}
+                                                                    >
+                                                                        <Pencil className="mr-2 h-4 w-4" />
+                                                                        Edit
+                                                                    </Link>
+                                                                </DropdownMenuItem>
 
-                                                            <DropdownMenuItem
-                                                                className="text-destructive focus:text-destructive"
-                                                                onClick={() => {
-                                                                    if (
-                                                                        confirm(
-                                                                            'Are you sure you want to delete this certification?',
-                                                                        )
-                                                                    ) {
-                                                                        router.delete(
-                                                                            `/admin/certifications/${certification.id}`,
-                                                                        );
-                                                                    }
-                                                                }}
-                                                            >
-                                                                <Trash2 className="mr-2 h-4 w-4" />
-                                                                Delete
-                                                            </DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
+                                                                <DropdownMenuItem
+                                                                    className="text-destructive focus:text-destructive"
+                                                                    onClick={() => {
+                                                                        if (
+                                                                            confirm(
+                                                                                'Are you sure you want to delete this certification?',
+                                                                            )
+                                                                        ) {
+                                                                            router.delete(
+                                                                                `/admin/certifications/${certification.id}`,
+                                                                            );
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    <Trash2 className="mr-2 h-4 w-4" />
+                                                                    Delete
+                                                                </DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ),
+                                        )
                                     ) : (
                                         <TableRow>
                                             <TableCell
