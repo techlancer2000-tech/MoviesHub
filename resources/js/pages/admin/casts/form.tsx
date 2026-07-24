@@ -309,7 +309,8 @@ export default function CastForm({ cast, countries, genders }: Props) {
                                     <Label>Person Type</Label>
 
                                     <p className="text-sm text-muted-foreground">
-                                        Enable for cast members, disable for crew members.
+                                        Enable for cast members, disable for
+                                        crew members.
                                     </p>
                                 </div>
 

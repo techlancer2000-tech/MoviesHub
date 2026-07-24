@@ -59,20 +59,25 @@ interface Props {
     genders: Gender[];
 }
 
-export default function ProductionCompanyForm({ production_company, countries, genders }: Props) {
+export default function ProductionCompanyForm({
+    production_company,
+    countries,
+    genders,
+}: Props) {
     const isEdit = Boolean(production_company?.id);
     const toast = useFlashToast();
-    const { data, setData, post, processing, errors } = useForm<ProductionCompanyFormData>({
-        name: production_company?.name ?? '',
+    const { data, setData, post, processing, errors } =
+        useForm<ProductionCompanyFormData>({
+            name: production_company?.name ?? '',
 
-        slug: production_company?.slug ?? '',
+            slug: production_company?.slug ?? '',
 
-        logo: null,
+            logo: null,
 
-        description: production_company?.description ?? '',
+            description: production_company?.description ?? '',
 
-        is_active: production_company?.is_active ?? true,
-    });
+            is_active: production_company?.is_active ?? true,
+        });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -81,19 +86,24 @@ export default function ProductionCompanyForm({ production_company, countries, g
             setData('_method', 'put');
         }
 
-        post(isEdit ? productionCompanyUpdate(production_company!.id!).url : productionCompanyStore().url, {
-            forceFormData: true,
+        post(
+            isEdit
+                ? productionCompanyUpdate(production_company!.id!).url
+                : productionCompanyStore().url,
+            {
+                forceFormData: true,
 
-            onSuccess: () => {
-                toast({
-                    title: 'Success',
+                onSuccess: () => {
+                    toast({
+                        title: 'Success',
 
-                    description: isEdit
-                        ? 'Production company updated successfully.'
-                        : 'Production company created successfully.',
-                });
+                        description: isEdit
+                            ? 'Production company updated successfully.'
+                            : 'Production company created successfully.',
+                    });
+                },
             },
-        });
+        );
     };
 
     const error = (field: keyof ProductionCompanyFormData) =>
@@ -103,13 +113,21 @@ export default function ProductionCompanyForm({ production_company, countries, g
 
     return (
         <>
-            <Head title={isEdit ? 'Edit Production Company' : 'Add Production Company'} />
+            <Head
+                title={
+                    isEdit
+                        ? 'Edit Production Company'
+                        : 'Add Production Company'
+                }
+            />
 
             <div className="flex flex-1 flex-col gap-6 p-6">
                 <div className="flex items-center justify-between">
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight">
-                            {isEdit ? 'Edit Production Company' : 'Add Production Company'}
+                            {isEdit
+                                ? 'Edit Production Company'
+                                : 'Add Production Company'}
                         </h1>
 
                         <p className="text-sm text-muted-foreground">
@@ -199,7 +217,8 @@ export default function ProductionCompanyForm({ production_company, countries, g
                                     <Label>Active Status</Label>
 
                                     <p className="text-sm text-muted-foreground">
-                                        Enable this production company for movies.
+                                        Enable this production company for
+                                        movies.
                                     </p>
                                 </div>
 

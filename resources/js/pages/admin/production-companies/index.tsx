@@ -10,7 +10,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { dashboard } from '@/routes';
-import { create as createProductionCompany, index as productionCompanyIndex } from '@/routes/production-companies';
+import {
+    create as createProductionCompany,
+    index as productionCompanyIndex,
+} from '@/routes/production-companies';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -147,113 +150,135 @@ export default function Index({ production_companies, filters }: Props) {
 
                                 <TableBody>
                                     {production_companies.data.length > 0 ? (
-                                        production_companies.data.map((production_company) => (
-                                            <TableRow key={production_company.id}>
-                                                {/* Production Companies */}
+                                        production_companies.data.map(
+                                            (production_company) => (
+                                                <TableRow
+                                                    key={production_company.id}
+                                                >
+                                                    {/* Production Companies */}
 
-                                                <TableCell>
-                                                    {production_company.logo ? (
-                                                        <img
-                                                            src={`/storage/${production_company.logo}`}
-                                                            alt={production_company.name}
-                                                            className="h-16 w-full"
-                                                            style={{objectFit: 'contain'}}
-                                                        />
-                                                    ) : (
-                                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted font-medium">
-                                                            {production_company.name
-                                                                .charAt(0)
-                                                                .toUpperCase()}
-                                                        </div>
-                                                    )}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {production_company.logo ? (
+                                                            <img
+                                                                src={`/storage/${production_company.logo}`}
+                                                                alt={
+                                                                    production_company.name
+                                                                }
+                                                                className="h-16 w-full"
+                                                                style={{
+                                                                    objectFit:
+                                                                        'contain',
+                                                                }}
+                                                            />
+                                                        ) : (
+                                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted font-medium">
+                                                                {production_company.name
+                                                                    .charAt(0)
+                                                                    .toUpperCase()}
+                                                            </div>
+                                                        )}
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    {production_company.name}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {
+                                                            production_company.name
+                                                        }
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    {production_company.slug}
-                                                </TableCell>
+                                                    <TableCell>
+                                                        {
+                                                            production_company.slug
+                                                        }
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    <div style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
-                                                        {production_company.description}
-                                                    </div>
-                                                </TableCell>
-
-                                                {/* Status */}
-
-                                                <TableCell>
-                                                    {production_company.is_active ? (
-                                                        <Badge className="border-green-200 bg-green-100 text-green-700 hover:bg-green-100">
-                                                            Active
-                                                        </Badge>
-                                                    ) : (
-                                                        <Badge variant="destructive">
-                                                            Inactive
-                                                        </Badge>
-                                                    )}
-                                                </TableCell>
-
-                                                {/* Created */}
-
-                                                <TableCell>
-                                                    {new Date(
-                                                        production_company.created_at,
-                                                    ).toLocaleDateString()}
-                                                </TableCell>
-
-                                                {/* Actions */}
-
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger
-                                                            asChild
+                                                    <TableCell>
+                                                        <div
+                                                            style={{
+                                                                whiteSpace:
+                                                                    'normal',
+                                                                overflowWrap:
+                                                                    'break-word',
+                                                            }}
                                                         >
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="icon"
-                                                                className="h-8 w-8"
-                                                            >
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
+                                                            {
+                                                                production_company.description
+                                                            }
+                                                        </div>
+                                                    </TableCell>
 
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuItem
+                                                    {/* Status */}
+
+                                                    <TableCell>
+                                                        {production_company.is_active ? (
+                                                            <Badge className="border-green-200 bg-green-100 text-green-700 hover:bg-green-100">
+                                                                Active
+                                                            </Badge>
+                                                        ) : (
+                                                            <Badge variant="destructive">
+                                                                Inactive
+                                                            </Badge>
+                                                        )}
+                                                    </TableCell>
+
+                                                    {/* Created */}
+
+                                                    <TableCell>
+                                                        {new Date(
+                                                            production_company.created_at,
+                                                        ).toLocaleDateString()}
+                                                    </TableCell>
+
+                                                    {/* Actions */}
+
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger
                                                                 asChild
                                                             >
-                                                                <Link
-                                                                    href={`/admin/production-companies/${production_company.id}/edit`}
+                                                                <Button
+                                                                    variant="ghost"
+                                                                    size="icon"
+                                                                    className="h-8 w-8"
                                                                 >
-                                                                    <Pencil className="mr-2 h-4 w-4" />
-                                                                    Edit
-                                                                </Link>
-                                                            </DropdownMenuItem>
+                                                                    <MoreHorizontal className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
 
-                                                            <DropdownMenuItem
-                                                                className="text-destructive focus:text-destructive"
-                                                                onClick={() => {
-                                                                    if (
-                                                                        confirm(
-                                                                            'Are you sure you want to delete this production company?',
-                                                                        )
-                                                                    ) {
-                                                                        router.delete(
-                                                                            `/admin/production-companies/${production_company.id}`,
-                                                                        );
-                                                                    }
-                                                                }}
-                                                            >
-                                                                <Trash2 className="mr-2 h-4 w-4" />
-                                                                Delete
-                                                            </DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
+                                                            <DropdownMenuContent align="end">
+                                                                <DropdownMenuItem
+                                                                    asChild
+                                                                >
+                                                                    <Link
+                                                                        href={`/admin/production-companies/${production_company.id}/edit`}
+                                                                    >
+                                                                        <Pencil className="mr-2 h-4 w-4" />
+                                                                        Edit
+                                                                    </Link>
+                                                                </DropdownMenuItem>
+
+                                                                <DropdownMenuItem
+                                                                    className="text-destructive focus:text-destructive"
+                                                                    onClick={() => {
+                                                                        if (
+                                                                            confirm(
+                                                                                'Are you sure you want to delete this production company?',
+                                                                            )
+                                                                        ) {
+                                                                            router.delete(
+                                                                                `/admin/production-companies/${production_company.id}`,
+                                                                            );
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    <Trash2 className="mr-2 h-4 w-4" />
+                                                                    Delete
+                                                                </DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ),
+                                        )
                                     ) : (
                                         <TableRow>
                                             <TableCell
